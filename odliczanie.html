@@ -23,6 +23,10 @@
             justify-content: space-around;
             align-items: center;
         }
+
+        img {
+            width: 500px;
+        }
     </style>
 </head>
 
@@ -35,10 +39,20 @@
         <p id="secs"></p>
         <h2 id="end"></h2>
     </div>
-    <img
-        src="https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708">
+    <img id="cat" src="https://cdn2.thecatapi.com/images/6nn.jpg">
+    <button onclick="loadACat()">I want moar </button>
 
     <script>
+        var catImg = document.getElementById("cat")
+        var loadACat = function () {
+            fetch("https://api.thecatapi.com/v1/images/search")
+                .then(response => response.json())
+                .then(data => {
+                    catImg.src = data[0].url
+
+                })
+
+        }
         // The data/time we want to countdown to
         var countDownDate = new Date(2021, 08, 12).getTime();
 
@@ -60,15 +74,6 @@
             document.getElementById("mins").innerHTML = minutes + "m "
             document.getElementById("secs").innerHTML = seconds + "s "
 
-            // Display the message when countdown is over
-            if (timeleft < 0) {
-                clearInterval(myfunc);
-                document.getElementById("days").innerHTML = ""
-                document.getElementById("hours").innerHTML = ""
-                document.getElementById("mins").innerHTML = ""
-                document.getElementById("secs").innerHTML = ""
-                document.getElementById("end").innerHTML = "TIME UP!!";
-            }
         }, 1000);
     </script>
 </body>
